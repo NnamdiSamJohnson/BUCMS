@@ -1,0 +1,93 @@
+.Nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    height: 15vh;
+    z-index: 10;
+
+    .nav-cont {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 30px 4rem;
+
+        .end {
+            display: flex;
+            align-items: center;
+            gap: 0 34px;
+            color: #3715e1;
+
+            & b {
+                font-size: 1.2rem;
+                font-weight: 800;
+            }
+            .login-cont {
+                z-index: 10;
+                width: 7rem;
+                position: relative;
+                .login {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0 5px;
+                    padding: 10px 0;
+                    border-radius: 7px;
+                    border: 2px solid #ffd700;
+                    cursor: pointer;
+                    transition: all 0.3s ease-in-out;
+                    &:hover {
+                        background-color: #ffd700;
+                        color: white;
+                    }
+                }
+                .login-modal {
+                    z-index: 10;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    background-color: rgba(103, 80, 164, 0.08);
+                    width: 100%;
+                    & div {
+                        display: flex;
+                        flex-direction: column;
+                        & span {
+                            text-align: center;
+                            padding: 15px 0;
+                            font-weight: 500;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease-in-out;
+                            &:hover {
+                                background-color: rgb(202, 202, 202);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .Nav {
+        height: unset;
+        .nav-cont {
+            padding: 15px 1rem;
+
+            & img {
+                width: clamp(5rem, 25vw, 8rem);
+            }
+            .end {
+                gap: 0 clamp(10px, 5vw, 20px);
+
+                & b {
+                    font-size: 0.9rem;
+                }
+                .login-cont {
+                    width: 5rem;
+                }
+            }
+        }
+    }
+}

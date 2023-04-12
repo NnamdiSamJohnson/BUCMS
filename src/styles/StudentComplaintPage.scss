@@ -1,0 +1,367 @@
+.StudentComplaintPage {
+    width: 80vw;
+    height: 100dvh;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .sidenav-open {
+        display: none;
+    }
+    .complaint-done {
+        background-color: rgba(0, 0, 0, 0.592);
+        height: 100dvh;
+        width: 100dvw;
+        position: fixed;
+        z-index: 10;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & img {
+            width: 50vw;
+            animation: done 0.5s linear 1 normal forwards;
+        }
+    }
+    .complaint-cont {
+        width: 100%;
+        height: 95%;
+        background-color: #fffadf;
+        border-radius: 34px;
+        color: #3715e1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .content {
+            width: 95%;
+            height: 95%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            gap: 1rem 0;
+
+            .hero {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .hero-left {
+                    & h3 {
+                        font-weight: 400;
+                    }
+                }
+                .hero-right {
+                    display: flex;
+                    align-items: center;
+                    gap: 0 1.5rem;
+                    & div {
+                        display: flex;
+                        align-items: center;
+                        background-color: #fff;
+                        border-radius: 17px;
+                        gap: 5px 10px;
+                        padding: 1rem;
+                        cursor: pointer;
+
+                        & img {
+                            width: 5rem;
+                        }
+                    }
+                }
+            }
+            .main {
+                background-color: white;
+                flex-grow: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .main-cont-1 {
+                    width: 95%;
+                    height: 90%;
+                    overflow-y: auto;
+
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                    }
+                    &::-webkit-scrollbar-track {
+                        width: 4px;
+                        background-color: transparent;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        width: 4px;
+                        background-color: rgb(221, 221, 221);
+                        border-radius: 10px;
+                    }
+
+                    & p {
+                        margin-top: 0.5rem;
+                    }
+                    .inputs {
+                        display: flex;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        gap: 1.5rem;
+                        color: black;
+                        margin-top: 1rem;
+
+                        .input-cont {
+                            flex-basis: 40%;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 5px;
+
+                            & span {
+                                color: red;
+                            }
+                            & input,
+                            .complaint-input {
+                                border: 1.8px solid #ffd700;
+                                border-radius: 5px;
+                                height: 3rem;
+                                padding-left: 1rem;
+                                font-size: 1rem;
+                                &::placeholder {
+                                    color: rgba(168, 168, 168, 0.8);
+                                    font-weight: 500;
+                                }
+                            }
+                            .complaint-input {
+                                height: 7rem;
+                                padding-top: 0.5rem;
+                            }
+                            & select {
+                                height: 3rem;
+                                border: 1.8px solid #ffd700;
+                                border-radius: 5px;
+                            }
+                        }
+                    }
+                    & button {
+                        cursor: pointer;
+                        background-color: #3715e1;
+                        padding: 0.8rem 2rem;
+                        color: white;
+                        border: none;
+                        margin-top: 1rem;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        transition: background-color 0.3s ease-in-out;
+
+                        &:hover {
+                            background-color: #201073;
+                        }
+                    }
+                }
+                .main-cont-2 {
+                    width: 95%;
+                    height: 90%;
+                    color: black;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .comp-head {
+                        display: flex;
+                        align-items: center;
+                        text-align: center;
+                        flex-wrap: nowrap;
+                        padding-bottom: 0.5rem;
+
+                        & span {
+                            flex: 1;
+                            color: rgba(0, 0, 0, 0.4);
+                            font-size: 0.9rem;
+                            &:nth-child(4) {
+                                flex: 0.2;
+                            }
+                        }
+                    }
+                    .comp-list {
+                        overflow-y: auto;
+                        height: 55vh;
+                        margin-bottom: 0.5rem;
+
+                        .complaint {
+                            display: flex;
+                            align-items: center;
+                            text-align: center;
+                            flex-wrap: nowrap;
+                            margin-top: 1.5rem;
+
+                            & span {
+                                flex: 1;
+                                font-size: 0.9rem;
+                            }
+                            .status {
+                                color: #8a8cd9;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                gap: 0 5px;
+                                .dot {
+                                    font-size: 0.5rem;
+                                }
+                            }
+                            & div {
+                                flex: 0.2;
+
+                                .edit {
+                                    background-color: #ffd700;
+                                    padding: 0.5rem;
+                                    cursor: pointer;
+                                    color: white;
+                                    transition: background-color 0.25s
+                                        ease-in-out;
+                                    &:hover {
+                                        background-color: #b59900;
+                                    }
+                                }
+                            }
+                        }
+                        &::-webkit-scrollbar {
+                            width: 4px;
+                        }
+                        &::-webkit-scrollbar-track {
+                            width: 4px;
+                            background-color: transparent;
+                        }
+                        &::-webkit-scrollbar-thumb {
+                            width: 4px;
+                            background-color: rgb(221, 221, 221);
+                            border-radius: 10px;
+                        }
+                    }
+                    .pagination-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        width: fit-content;
+                        margin-left: auto;
+                        gap: 0 10px;
+
+                        & li {
+                            flex: 0.1;
+                            width: 4rem;
+                            height: 2rem;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            text-align: center;
+                            flex-shrink: 0;
+
+                            &::marker {
+                                content: "";
+                            }
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                            & a {
+                                width: 100%;
+                                flex-shrink: 0;
+                            }
+                        }
+                        .paginate-icon {
+                            font-size: 0.8rem;
+                        }
+                        .page-selected {
+                            background-color: rgba(185, 109, 168, 0.33);
+                            &:hover {
+                                text-decoration: none;
+                            }
+                        }
+                        .disabled-btn {
+                            color: rgba(0, 0, 0, 0.237);
+                            cursor: unset;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes done {
+    from {
+        transform: scale(0) rotate(360deg);
+    }
+    to {
+        transform: scale(1) rotate(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .StudentComplaintPage {
+        width: 100dvw;
+        flex-direction: column;
+        overflow-x: hidden;
+
+        .sidenav-open {
+            display: block;
+            width: 100%;
+            padding-left: 2rem;
+            margin-bottom: 0.5rem;
+            .btn {
+                font-size: 1.7rem;
+            }
+        }
+        .complaint-cont {
+            height: 92%;
+            border-radius: 10px;
+            .content {
+                width: 100%;
+                .hero {
+                    flex-direction: column;
+
+                    .hero-left {
+                        display: none;
+                    }
+                    .hero-right {
+                        & div {
+                            padding: 0.5rem;
+                            & img {
+                                width: 2.8rem;
+                            }
+                            & p {
+                                font-size: 0.8rem;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                }
+                .main {
+                    .main-cont-1 {
+                        & h1 {
+                            font-size: 1.4rem;
+                        }
+                        & p {
+                            font-size: 0.9rem;
+                        }
+                        .inputs {
+                            .input-cont {
+                                flex-basis: 100%;
+                                .complaint-input {
+                                    padding: 0.5rem;
+                                }
+                            }
+                        }
+                    }
+                    .main-cont-2 {
+                        .comp-list {
+                            .complaint {
+                                & span {
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    overflow-x: hidden;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

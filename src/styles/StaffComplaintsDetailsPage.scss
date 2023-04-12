@@ -1,0 +1,263 @@
+.Complaint-page {
+    width: 100vw;
+    height: 100vh;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+
+        & h1 {
+            font-size: 1.5rem;
+        }
+        .submit-active {
+            border: none;
+            background-color: #ffd700;
+            color: white;
+            padding: 0.7rem 1.1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            &:hover {
+                background-color: #ceaf00;
+            }
+        }
+        .submit-inactive {
+            border: none;
+            background-color: rgb(205, 205, 205);
+            color: white;
+            padding: 0.7rem 1.1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: not-allowed;
+            transition: background-color 0.2s ease-in-out;
+        }
+    }
+    .section-1 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem 1rem;
+        margin-top: 3.5vh;
+        border-bottom: 1px solid rgba(5, 15, 48, 0.15);
+        padding-bottom: 1rem;
+
+        .inputs {
+            width: 30%;
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 0 10px;
+            & span {
+                color: rgba(5, 15, 48, 0.6);
+                font-weight: 600;
+                flex-shrink: 0;
+            }
+            & input {
+                flex-shrink: 0;
+                flex-grow: 0.5;
+                border: none;
+                border-bottom: 2px solid #000;
+                color: rgba(0, 0, 0, 0.381);
+                text-align: center;
+                background-color: transparent;
+                cursor: not-allowed;
+            }
+        }
+    }
+    .section-2 {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem 0;
+        border-bottom: 1px solid rgba(5, 15, 48, 0.15);
+        padding: 1rem 0;
+
+        .inputs {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 0 10px;
+            & span {
+                color: rgba(5, 15, 48, 0.6);
+                font-weight: 600;
+                flex-shrink: 0;
+            }
+            & input {
+                flex-shrink: 0;
+                flex-grow: 0.9;
+                border: none;
+                border-bottom: 2px solid #000;
+                color: rgba(0, 0, 0, 0.381);
+                text-align: start;
+                padding-left: 1rem;
+                background-color: transparent;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .section-3 {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 0 10px;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(5, 15, 48, 0.6);
+
+        & p {
+            color: rgba(5, 15, 48, 0.6);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .btn-cont {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 0 1.5rem;
+            & div {
+                border-radius: 8px;
+                padding: 5px;
+                display: flex;
+                align-items: center;
+                flex-wrap: nowrap;
+                gap: 0 5px;
+                border: 2px solid rgb(192, 192, 192);
+                color: rgb(192, 192, 192);
+                cursor: pointer;
+            }
+            .done {
+                color: #1bf216;
+                border: 2px solid #1bf216;
+                cursor: auto;
+            }
+            .pending {
+                color: #e0e300;
+                border: 2px solid #e0e300;
+                cursor: auto;
+            }
+            .cancelled {
+                color: red;
+                border: 2px solid red;
+                cursor: auto;
+            }
+        }
+    }
+    .section-4 {
+        border-bottom: 1px solid rgba(5, 15, 48, 0.6);
+        & h2 {
+            text-align: center;
+            text-decoration: underline;
+        }
+        & div {
+            height: 20vh;
+            overflow-y: auto;
+            cursor: not-allowed;
+
+            &::-webkit-scrollbar {
+                width: 4px;
+            }
+            &::-webkit-scrollbar-track {
+                width: 4px;
+                background-color: transparent;
+            }
+            &::-webkit-scrollbar-thumb {
+                width: 4px;
+                background-color: rgb(188, 188, 188);
+                border-radius: 10px;
+            }
+            & span {
+                color: rgba(5, 15, 48, 0.6);
+            }
+        }
+    }
+    .footer {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0.5rem;
+        flex-grow: 1;
+        & h3 {
+            text-decoration: underline;
+        }
+        & textarea {
+            border: none;
+            border-bottom: 2px solid #00000026;
+            border-right: 2px solid #00000026;
+            margin-top: 0.2rem;
+            flex-grow: 0.98;
+            background-image: linear-gradient(
+                to top,
+                rgb(240, 240, 240),
+                white
+            );
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+                "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+                "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            &:focus-visible {
+                outline: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .Complaint-page {
+        padding: 0;
+        height: auto;
+
+        .header {
+            & h1 {
+                font-size: 1.2rem;
+                margin-left: 0.5rem;
+            }
+            & button {
+                margin-right: 0.5rem;
+            }
+        }
+        .section-1 {
+            flex-direction: column;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            .inputs {
+                width: 100%;
+            }
+        }
+        .section-2 {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        .section-3 {
+            flex-direction: column;
+            gap: 10px 0;
+            .btn-cont {
+                gap: 0 1rem;
+            }
+        }
+        .section-4 {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            & div {
+                height: 10rem;
+                & span {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+        .footer {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            & textarea {
+                flex-grow: unset;
+                height: 10rem;
+            }
+        }
+    }
+}

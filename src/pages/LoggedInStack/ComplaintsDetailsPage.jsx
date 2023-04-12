@@ -23,44 +23,56 @@ export default function ComplaintsDetailsPage() {
     }, [dispatch])
 
     async function makeComment(data) {
-        await fetch("https://bu-complaints.onrender.com/comment", {
-            method: "post",
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" },
-        })
+        let response = await fetch(
+            "https://bu-complaints.onrender.com/comment",
+            {
+                method: "post",
+                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/json" },
+            }
+        )
             .then((res) => res.json())
-            .then((res) => {
-                dispatch(
-                    updateComplaint({
-                        id: complaint?._id,
-                        body: {
-                            comment: res._id,
-                            status: statusState,
-                        },
-                    })
-                )
-            })
             .catch(() => alert("Server error"))
+
+        if (response._id) {
+            dispatch(
+                updateComplaint({
+                    id: complaint?._id,
+                    body: {
+                        comment: response._id,
+                        status: statusState,
+                    },
+                })
+            )
+        } else {
+            alert("Error updating comment")
+        }
     }
     async function updateComment(data) {
-        await fetch(`https://bu-complaints.onrender.com/comment/${commentId}`, {
-            method: "put",
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" },
-        })
+        let response = await fetch(
+            `https://bu-complaints.onrender.com/comment/${commentId}`,
+            {
+                method: "put",
+                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/json" },
+            }
+        )
             .then((res) => res.json())
-            .then((res) => {
-                dispatch(
-                    updateComplaint({
-                        id: complaint?._id,
-                        body: {
-                            comment: res._id,
-                            status: statusState,
-                        },
-                    })
-                )
-            })
             .catch(() => alert("Server error"))
+
+        if (response._id) {
+            dispatch(
+                updateComplaint({
+                    id: complaint?._id,
+                    body: {
+                        comment: response._id,
+                        status: statusState,
+                    },
+                })
+            )
+        } else {
+            alert("Error updating comment")
+        }
     }
 
     function submit() {

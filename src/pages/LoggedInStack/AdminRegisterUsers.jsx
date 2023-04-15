@@ -5,9 +5,10 @@ import {
     registerStaff,
     registerStudent,
 } from "../../redux/userReducer"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 export default function AdminRegisterUsers() {
+    const { faculties } = useSelector((state) => state.user)
     const [studentTab, setStudentTab] = useState(true)
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
@@ -17,7 +18,7 @@ export default function AdminRegisterUsers() {
     const [email, setEmail] = useState("")
     const [matricno, setMatricno] = useState("")
     const [adminName, setAdminName] = useState("")
-    const [department, setDepartment] = useState("")
+    const [department, setDepartment] = useState(faculties[0]?._id)
     const dispatch = useDispatch()
 
     function createStudent() {
@@ -172,12 +173,17 @@ export default function AdminRegisterUsers() {
                         </div>
                         <div className="input-cont">
                             <label>Department :</label>
-                            <input
+                            <select
                                 onChange={(e) => setDepartment(e.target.value)}
-                                value={department}
-                                type="text"
-                                placeholder="Department"
-                            />
+                            >
+                                {faculties.map((item) => {
+                                    return (
+                                        <option key={item._id} value={item._id}>
+                                            {item.name}
+                                        </option>
+                                    )
+                                })}
+                            </select>
                         </div>
                         <div className="input-cont">
                             <label>Email :</label>

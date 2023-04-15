@@ -381,6 +381,7 @@ const userReducer = createSlice({
                 state.loading = false
                 if (action.payload._id) {
                     state.feedbackPopup = true
+                    state.feedbackReload = true
                     state.feedbackText = "Student registered successfully"
                 } else {
                     state.feedbackPopup = true
@@ -399,6 +400,7 @@ const userReducer = createSlice({
                 state.loading = false
                 if (action.payload._id) {
                     state.feedbackPopup = true
+                    state.feedbackReload = true
                     state.feedbackText = "Staff registered successfully"
                 } else {
                     state.feedbackPopup = true

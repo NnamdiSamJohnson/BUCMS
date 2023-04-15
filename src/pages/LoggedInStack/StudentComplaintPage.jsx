@@ -10,12 +10,7 @@ import { useState } from "react"
 import ReactPaginate from "react-paginate"
 import "../../styles/StudentComplaintPage.scss"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import {
-    getStudentComplaints,
-    makeComplaint,
-    updateComplaint,
-} from "../../redux/userReducer"
+import { makeComplaint, updateComplaint } from "../../redux/userReducer"
 
 export default function StudentComplaintPage() {
     const { studentComplaints, faculties, studentId } = useSelector(
@@ -33,10 +28,6 @@ export default function StudentComplaintPage() {
     const pagesVisited = pageNumber * complaintPerPage
     const pageCount = Math.ceil(studentComplaints.length / complaintPerPage)
     const date = new Date()
-
-    useEffect(() => {
-        dispatch(getStudentComplaints(studentId))
-    }, [dispatch, studentId])
 
     const displayComplaints = studentComplaints
         .slice(pagesVisited, pagesVisited + complaintPerPage)

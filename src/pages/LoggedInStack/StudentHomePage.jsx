@@ -1,12 +1,54 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "../../styles/StudentHomePage.scss"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
+import { useEffect } from "react"
+import { useState } from "react"
+import { useSelector } from "react-redux"
 
 export default function StudentHomePage() {
+    const { studentId, studentComplaints } = useSelector((state) => state.user)
+    const [rejected, setRejected] = useState(0)
+    const [done, setDone] = useState(0)
+    const [pending, setPending] = useState(0)
+
     function openSidenav() {
         let sidenav = document.getElementById("Sidenav")
         sidenav.style.display = "block"
     }
+
+    async function getPending() {
+        await fetch(
+            `https://bu-complaints.onrender.com/complaint/complaints/student/${studentId}/pending`
+        )
+            .then((res) => res.json())
+            .then((res) => setPending(res.length))
+            .catch((err) => console.log(err))
+    }
+
+    async function getRejected() {
+        await fetch(
+            `https://bu-complaints.onrender.com/complaint/student/${studentId}/pending`
+        )
+            .then((res) => res.json())
+            .then((res) => setRejected(res.length))
+            .catch((err) => console.log(err))
+    }
+
+    async function getDone() {
+        await fetch(
+            `https://bu-complaints.onrender.com/complaint/student/${studentId}/settled`
+        )
+            .then((res) => res.json())
+            .then((res) => setDone(res.length))
+            .catch((err) => console.log(err))
+    }
+
+    useEffect(() => {
+        getPending()
+        getRejected()
+        getDone()
+    }, [])
+
     return (
         <div className="StudentHomePage">
             <div className="sidenav-open">
@@ -27,19 +69,19 @@ export default function StudentHomePage() {
                     </div>
                     <div className="hero-bottom">
                         <div className="item">
-                            <h2>11</h2>
+                            <h2>{rejected}</h2>
                             <p>Complaints Rejected</p>
                         </div>
                         <div className="item">
-                            <h2>20</h2>
+                            <h2>{studentComplaints.length}</h2>
                             <p>Total Complaints</p>
                         </div>
                         <div className="item">
-                            <h2>11</h2>
+                            <h2>{done}</h2>
                             <p>Complaints Answered</p>
                         </div>
                         <div className="item">
-                            <h2>4</h2>
+                            <h2>{pending}</h2>
                             <p>Complaints Pending</p>
                         </div>
                     </div>

@@ -1,0 +1,123 @@
+.AdminRegisterUsers {
+    width: 80dvw;
+    height: 100dvh;
+    background-color: #fffadf;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .register-cont {
+        background-color: #fff;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 6px;
+        padding: 2rem 0;
+
+        .inputs {
+            display: flex;
+            flex-wrap: wrap;
+            width: 95%;
+            justify-content: space-between;
+            gap: 30px 15px;
+            margin-top: 5vh;
+
+            .input-cont {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                flex-basis: 30%;
+
+                & label {
+                    font-weight: 500;
+                    margin-left: 10px;
+                    white-space: nowrap;
+                }
+
+                & input {
+                    height: 2.3rem;
+                    border: 1.8px solid #ffd700;
+                    border-radius: 5px;
+                    padding: 0 0.5rem;
+
+                    &::placeholder {
+                        color: rgba(168, 168, 168, 0.8);
+                        font-weight: 500;
+                    }
+                }
+                & select {
+                    height: 2.3rem;
+                    border: 1.8px solid #ffd700;
+                    border-radius: 5px;
+                    padding: 0 0.5rem;
+                }
+            }
+        }
+
+        & p {
+            color: #3a21b6;
+            margin: 1rem 0;
+            width: fit-content;
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        & button {
+            background-color: #ffd700;
+            color: white;
+            border-radius: 5px;
+            width: 20%;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.7rem 0;
+            transition: background-color 0.25s ease-in-out;
+
+            &:hover {
+                background-color: #a08902;
+            }
+        }
+    }
+}
+
+@media (max-width: 470px) {
+    .AdminRegisterUsers {
+        width: 100dvw;
+
+        .register-cont {
+            height: 80dvh;
+            justify-content: center;
+
+            .inputs {
+                overflow-y: auto;
+                overflow-x: hidden;
+                height: 80%;
+
+                .input-cont {
+                    flex-basis: unset;
+                    width: 45%;
+
+                    & label {
+                        font-size: 0.75rem;
+                        margin-left: 0;
+                    }
+                }
+            }
+            & p {
+                font-size: 0.8rem;
+            }
+            & button {
+                width: 40%;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .AdminRegisterUsers {
+        width: 100dvw;
+    }
+}

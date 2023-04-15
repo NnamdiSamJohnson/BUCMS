@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { Navigate, Outlet } from "react-router-dom"
 import { hideLoginState } from "../redux/userReducer"
+import Loading from "../components/Loading"
 
 export default function LoggedOutAuthenticator({ children }) {
     const { loggedIn, loginError, loading } = useSelector((state) => state.user)
@@ -21,11 +22,7 @@ export default function LoggedOutAuthenticator({ children }) {
                     </div>
                 </div>
             ) : null}
-            {loading ? (
-                <div className="loginError">
-                    <h1>loading...</h1>
-                </div>
-            ) : null}
+            {loading ? <Loading /> : null}
             <Outlet />
         </>
     )

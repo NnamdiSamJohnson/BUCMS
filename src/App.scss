@@ -211,7 +211,8 @@
     }
 }
 
-.loginError {
+.loginError,
+.feedback-popup {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.377);
     height: 100dvh;
@@ -241,6 +242,19 @@
             padding: 0.6rem 0;
         }
     }
+}
+
+.loading {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.377);
+    height: 100dvh;
+    width: 100dvw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+
     & h1 {
         color: #ffd700;
         animation: loading 0.7s ease-in-out infinite alternate-reverse both;

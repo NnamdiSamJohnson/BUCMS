@@ -13,6 +13,7 @@ import LoggedOutAuthenticator from "./pages/LoggedOutAuthenticator"
 import ComplaintsDetailsPage from "./pages/LoggedInStack/ComplaintsDetailsPage"
 import StudentComplaintPage from "./pages/LoggedInStack/StudentComplaintPage"
 import AdminComplaintsPage from "./pages/LoggedInStack/AdminComplaintsPage"
+import AdminRegisterUsers from "./pages/LoggedInStack/AdminRegisterUsers"
 
 function App() {
     const { admin, student, staff } = useSelector((state) => state.user)
@@ -49,6 +50,10 @@ function App() {
                             <Route
                                 path="complaints-details"
                                 element={<ComplaintsDetailsPage />}
+                            />
+                            <Route
+                                path="register"
+                                element={<AdminRegisterUsers />}
                             />
                         </>
                     ) : null}

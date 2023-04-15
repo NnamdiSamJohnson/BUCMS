@@ -3,9 +3,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { Navigate, Outlet } from "react-router-dom"
 import Sidenav from "../components/Sidenav"
 import { getAllComplaints, getAllFaculties } from "../redux/userReducer"
+import Loading from "../components/Loading"
+import FeedbackPopup from "../components/FeedbackPopup"
 
 export default function LoggedInAuthenticator({ children }) {
-    const { loggedIn, sidebar } = useSelector((state) => state.user)
+    const { loggedIn, sidebar, loading, feedbackPopup } = useSelector(
+        (state) => state.user
+    )
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -19,6 +23,8 @@ export default function LoggedInAuthenticator({ children }) {
     return (
         <div className="LoggedInAuthenticator">
             {sidebar ? <Sidenav /> : null}
+            {loading ? <Loading /> : null}
+            {feedbackPopup ? <FeedbackPopup /> : null}
             <Outlet />
         </div>
     )

@@ -8,6 +8,9 @@ const initialState = {
     staff: checkStaffLogin(),
     sidebar: true,
     loading: false,
+    feedbackPopup: false,
+    feedbackReload: false,
+    feedbackText: "",
     studentId: "",
     firstname: "",
     lastname: "",
@@ -93,6 +96,44 @@ export const adminLogin = createAsyncThunk(
         try {
             let response = await fetch(
                 "https://bu-complaints.onrender.com/login/admin",
+                {
+                    method: "post",
+                    body: JSON.stringify(data),
+                    headers: { "Content-Type": "application/json" },
+                }
+            ).then((res) => res.json())
+            return response
+        } catch (error) {
+            return thunkAPI.rejectWithValue(true)
+        }
+    }
+)
+
+export const registerStudent = createAsyncThunk(
+    "registerStudent",
+    async (data, thunkAPI) => {
+        try {
+            let response = await fetch(
+                "https://bu-complaints.onrender.com/register/student",
+                {
+                    method: "post",
+                    body: JSON.stringify(data),
+                    headers: { "Content-Type": "application/json" },
+                }
+            ).then((res) => res.json())
+            return response
+        } catch (error) {
+            return thunkAPI.rejectWithValue(true)
+        }
+    }
+)
+
+export const registerStaff = createAsyncThunk(
+    "registerStaff",
+    async (data, thunkAPI) => {
+        try {
+            let response = await fetch(
+                "https://bu-complaints.onrender.com/register/lecturer",
                 {
                     method: "post",
                     body: JSON.stringify(data),
@@ -239,6 +280,13 @@ const userReducer = createSlice({
         hideLoginState: (state) => {
             state.loginError = false
         },
+        openFeedbackPopup: (state, action) => {
+            state.feedbackPopup = true
+            state.feedbackText = action.payload
+        },
+        closeFeedbackPopup: (state) => {
+            state.feedbackPopup = false
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -326,21 +374,61 @@ const userReducer = createSlice({
                 state.loggedIn = false
                 state.staff = false
             })
+            .addCase(registerStudent.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(registerStudent.fulfilled, (state, action) => {
+                state.loading = false
+                if (action.payload._id) {
+                    state.feedbackPopup = true
+                    state.feedbackText = "Student registered successfully"
+                } else {
+                    state.feedbackPopup = true
+                    state.feedbackText = "Error registering student"
+                }
+            })
+            .addCase(registerStudent.rejected, (state) => {
+                state.loading = false
+                state.feedbackPopup = true
+                state.feedbackText = "Error registering student"
+            })
+            .addCase(registerStaff.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(registerStaff.fulfilled, (state, action) => {
+                state.loading = false
+                if (action.payload._id) {
+                    state.feedbackPopup = true
+                    state.feedbackText = "Staff registered successfully"
+                } else {
+                    state.feedbackPopup = true
+                    state.feedbackText = "Error registering staff"
+                }
+            })
+            .addCase(registerStaff.rejected, (state) => {
+                state.loading = false
+                state.feedbackPopup = true
+                state.feedbackText = "Error registering staff"
+            })
             .addCase(makeComplaint.pending, (state) => {
                 state.loading = true
             })
             .addCase(makeComplaint.fulfilled, (state, action) => {
                 if (action.payload._id) {
                     state.loading = false
-                    window.location.reload()
+                    state.feedbackPopup = true
+                    state.feedbackReload = true
+                    state.feedbackText = "Complaint registered"
                 } else {
                     state.loading = false
-                    alert("Server error")
+                    state.feedbackPopup = true
+                    state.feedbackText = "Error making complaint"
                 }
             })
             .addCase(makeComplaint.rejected, (state) => {
                 state.loading = false
-                alert("Server error")
+                state.feedbackPopup = true
+                state.feedbackText = "Error making complaint"
             })
             .addCase(makeComment.pending, (state) => {
                 state.loading = true
@@ -348,64 +436,106 @@ const userReducer = createSlice({
             .addCase(makeComment.fulfilled, (state, action) => {
                 if (action.payload._id) {
                     state.loading = false
-                    window.location.reload()
+                    state.feedbackPopup = true
+                    state.feedbackReload = true
+                    state.feedbackText = "Comment registered"
                 } else {
                     state.loading = false
-                    alert("Server error")
+                    state.feedbackPopup = true
+                    state.feedbackText = "Error making comment"
                 }
             })
             .addCase(makeComment.rejected, (state) => {
                 state.loading = false
-                alert("Server error")
+                state.feedbackPopup = true
+                state.feedbackReload = true
+                state.feedbackText = "Error making comment"
             })
             .addCase(getAllComplaints.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.complaints = action.payload
+                } else {
+                    state.feedbackPopup = true
+                    state.feedbackText = "Couldn't fetch complaints"
                 }
             })
-            .addCase(getAllComplaints.rejected, () => {
-                alert("Server error")
+            .addCase(getAllComplaints.rejected, (state) => {
+                state.feedbackPopup = true
+                state.feedbackText = "Couldn't fetch complaints"
             })
             .addCase(getAllFaculties.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.faculties = action.payload
+                } else {
+                    state.feedbackPopup = true
+                    state.feedbackText = "Couldn't fetch faculties"
                 }
             })
-            .addCase(getAllFaculties.rejected, () => {
-                alert("Server error")
+            .addCase(getAllFaculties.rejected, (state) => {
+                state.feedbackPopup = true
+                state.feedbackText = "Couldn't fetch faculties"
+            })
+            .addCase(deleteComplaint.pending, (state) => {
+                state.loading = true
             })
             .addCase(deleteComplaint.fulfilled, (state, action) => {
+                state.loading = false
                 if (action.payload !== "Complaint has been deleted...") {
-                    alert("Server error")
+                    state.feedbackPopup = true
+                    state.feedbackText = "Error deleting complaint"
                 } else {
-                    window.location.reload()
+                    state.feedbackPopup = true
+                    state.feedbackReload = true
+                    state.feedbackText = "Complaint deleted"
                 }
             })
-            .addCase(deleteComplaint.rejected, () => {
-                alert("Server error")
+            .addCase(deleteComplaint.rejected, (state) => {
+                state.loading = false
+                state.feedbackPopup = true
+                state.feedbackText = "Error deleting complaint"
+            })
+            .addCase(updateComplaint.pending, (state) => {
+                state.loading = true
             })
             .addCase(updateComplaint.fulfilled, (state, action) => {
+                state.loading = false
                 if (action.payload._id) {
+                    state.feedbackPopup = true
+                    state.feedbackReload = true
+                    state.feedbackText = "Complaint updated"
                     window.location.assign("/user")
                 } else {
-                    alert("Server error")
+                    state.feedbackPopup = true
+                    state.feedbackText = "Error updating complaint"
                 }
             })
-            .addCase(updateComplaint.rejected, () => {
-                alert("Server error")
+            .addCase(updateComplaint.rejected, (state) => {
+                state.loading = false
+                state.feedbackPopup = true
+                state.feedbackText = "Error updating complaint"
             })
             .addCase(getStudentComplaints.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.studentComplaints = action.payload.complaint
+                } else {
+                    state.feedbackPopup = true
+                    state.feedbackText = "Error loading student complaints"
                 }
             })
-            .addCase(getStudentComplaints.rejected, () => {
-                alert("Server error")
+            .addCase(getStudentComplaints.rejected, (state) => {
+                state.feedbackPopup = true
+                state.feedbackText = "Error loading student complaints"
             })
     },
 })
 
-export const { logout, showSidebar, hideSidebar, hideLoginState } =
-    userReducer.actions
+export const {
+    logout,
+    showSidebar,
+    hideSidebar,
+    hideLoginState,
+    closeFeedbackPopup,
+    openFeedbackPopup,
+} = userReducer.actions
 
 export default userReducer.reducer

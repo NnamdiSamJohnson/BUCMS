@@ -136,14 +136,25 @@ export default function Sidenav() {
                         <FontAwesomeIcon icon={faListCheck} />
                         <span>Complaints</span>
                     </div>
-                    <div className="nav-btn">
+                    <div
+                        onClick={() => {
+                            navigate("/user/register")
+                            handleSideNav()
+                        }}
+                        className={
+                            route !== "/user/register"
+                                ? "nav-btn"
+                                : "nav-btn-selected"
+                        }
+                    >
                         <FontAwesomeIcon icon={faGear} />
-                        <span>Settings</span>
+                        <span>Register</span>
                     </div>
                     <div className="profile-btn-cont">
                         <div
                             className="profile-btn"
                             onClick={() => dispatch(logout())}
+                            style={{ cursor: "pointer" }}
                         >
                             <FontAwesomeIcon
                                 className="user-icon"
@@ -197,6 +208,7 @@ export default function Sidenav() {
                 </div>
                 <div className="profile-btn-cont">
                     <div
+                        style={{ cursor: "pointer" }}
                         className="profile-btn"
                         onClick={() => dispatch(logout())}
                     >

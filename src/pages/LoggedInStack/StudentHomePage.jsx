@@ -3,13 +3,15 @@ import "../../styles/StudentHomePage.scss"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
 import { useEffect } from "react"
 import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { openFeedbackPopup } from "../../redux/userReducer"
 
 export default function StudentHomePage() {
     const { studentId, studentComplaints } = useSelector((state) => state.user)
     const [rejected, setRejected] = useState(0)
     const [done, setDone] = useState(0)
     const [pending, setPending] = useState(0)
+    const dispatch = useDispatch()
 
     function openSidenav() {
         let sidenav = document.getElementById("Sidenav")
@@ -22,7 +24,7 @@ export default function StudentHomePage() {
         )
             .then((res) => res.json())
             .then((res) => setPending(res.length))
-            .catch((err) => console.log(err))
+            .catch((err) => dispatch(openFeedbackPopup("Server error")))
     }
 
     async function getRejected() {
@@ -31,7 +33,6 @@ export default function StudentHomePage() {
         )
             .then((res) => res.json())
             .then((res) => setRejected(res.length))
-            .catch((err) => console.log(err))
     }
 
     async function getDone() {
@@ -40,7 +41,6 @@ export default function StudentHomePage() {
         )
             .then((res) => res.json())
             .then((res) => setDone(res.length))
-            .catch((err) => console.log(err))
     }
 
     useEffect(() => {

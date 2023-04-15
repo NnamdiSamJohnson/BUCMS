@@ -13,6 +13,7 @@ import TopNavbar from "../../components/TopNavbar"
 import {
     deleteComplaint,
     getAllComplaints,
+    openFeedbackPopup,
     showSidebar,
 } from "../../redux/userReducer"
 import "../../styles/StaffHomePage.scss"
@@ -20,7 +21,7 @@ import "../../styles/StaffHomePage.scss"
 export default function StaffHomePage() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { complaints } = useSelector((state) => state.user)
+    const { complaints, staffFacultyId } = useSelector((state) => state.user)
     const [showDelete, setShowDelete] = useState(false)
     const [complaintId, setComplaintId] = useState("")
     const date = new Date()
@@ -59,17 +60,34 @@ export default function StaffHomePage() {
                     />
                 </div>
                 <div>{date.toUTCString(complaint.createdAt)}</div>
+                <div
+                    style={{
+                        color:
+                            staffFacultyId !== complaint?.faculty?._id
+                                ? "red"
+                                : "#1bf216",
+                    }}
+                >
+                    {complaint?.faculty.name}
+                </div>
                 <div>{complaint.status ? complaint.status : "null"}</div>
                 <div>
                     {complaint.student.firstname} {complaint.student.lastname}
                 </div>
                 <div>
                     <div
-                        onClick={() =>
+                        onClick={() => {
+                            if (staffFacultyId !== complaint.faculty._id) {
+                                return dispatch(
+                                    openFeedbackPopup(
+                                        "Staff can only access complaints relative to their departments"
+                                    )
+                                )
+                            }
                             navigate("/user/complaints-details", {
                                 state: complaint,
                             })
-                        }
+                        }}
                     >
                         <span>View more</span>
                         <FontAwesomeIcon icon={faCircleArrowRight} />
@@ -98,6 +116,7 @@ export default function StaffHomePage() {
                         <div className="section-head">
                             <span>Actions</span>
                             <span>Date & Time</span>
+                            <span>Faculty</span>
                             <span>Status</span>
                             <span>Personnel</span>
                             <span></span>

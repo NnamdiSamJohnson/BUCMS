@@ -59,6 +59,7 @@ export default function AdminComplaintsPage() {
                     />
                 </div>
                 <div>{date.toUTCString(complaint.createdAt)}</div>
+                <div>{complaint?.faculty.name}</div>
                 <div>{complaint.status ? complaint.status : "null"}</div>
                 <div>
                     {complaint.student.firstname} {complaint.student.lastname}
@@ -97,6 +98,7 @@ export default function AdminComplaintsPage() {
                         <div className="section-head">
                             <span>Actions</span>
                             <span>Date & Time</span>
+                            <span>Faculty</span>
                             <span>Status</span>
                             <span>Personnel</span>
                             <span></span>

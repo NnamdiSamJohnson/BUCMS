@@ -17,6 +17,7 @@ const initialState = {
     level: 0,
     matricNo: "",
     staffId: "",
+    staffFacultyId: "",
     staffName: "",
     adminId: "",
     adminUsername: "",
@@ -334,6 +335,7 @@ const userReducer = createSlice({
                     sessionStorage.setItem("staff", "loggedIn")
                     state.staffName = action.payload.name
                     state.staffId = action.payload._id
+                    state.staffFacultyId = action.payload?.faculty
                 } else {
                     state.loginError = true
                     state.loading = false
@@ -453,7 +455,11 @@ const userReducer = createSlice({
                 state.feedbackReload = true
                 state.feedbackText = "Error making comment"
             })
+            .addCase(getAllComplaints.pending, (state) => {
+                state.loading = true
+            })
             .addCase(getAllComplaints.fulfilled, (state, action) => {
+                state.loading = false
                 if (action.payload) {
                     state.complaints = action.payload
                 } else {
@@ -462,10 +468,15 @@ const userReducer = createSlice({
                 }
             })
             .addCase(getAllComplaints.rejected, (state) => {
+                state.loading = false
                 state.feedbackPopup = true
                 state.feedbackText = "Couldn't fetch complaints"
             })
+            .addCase(getAllFaculties.pending, (state) => {
+                state.loading = true
+            })
             .addCase(getAllFaculties.fulfilled, (state, action) => {
+                state.loading = false
                 if (action.payload) {
                     state.faculties = action.payload
                 } else {
@@ -474,6 +485,7 @@ const userReducer = createSlice({
                 }
             })
             .addCase(getAllFaculties.rejected, (state) => {
+                state.loading = false
                 state.feedbackPopup = true
                 state.feedbackText = "Couldn't fetch faculties"
             })
@@ -516,7 +528,11 @@ const userReducer = createSlice({
                 state.feedbackPopup = true
                 state.feedbackText = "Error updating complaint"
             })
+            .addCase(getStudentComplaints.pending, (state) => {
+                state.loading = true
+            })
             .addCase(getStudentComplaints.fulfilled, (state, action) => {
+                state.loading = false
                 if (action.payload) {
                     state.studentComplaints = action.payload.complaint
                 } else {
@@ -525,6 +541,7 @@ const userReducer = createSlice({
                 }
             })
             .addCase(getStudentComplaints.rejected, (state) => {
+                state.loading = false
                 state.feedbackPopup = true
                 state.feedbackText = "Error loading student complaints"
             })

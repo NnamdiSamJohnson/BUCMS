@@ -23,11 +23,11 @@ export default function StudentComplaintPage() {
     const [done, setDone] = useState(false)
     const [faculty, setFaculty] = useState("")
     const [complaint, setComplaint] = useState("")
+    const [response, setResponse] = useState("")
     const [editComplaintId, setEditComplaintId] = useState("")
     const complaintPerPage = 10
     const pagesVisited = pageNumber * complaintPerPage
     const pageCount = Math.ceil(studentComplaints.length / complaintPerPage)
-    const date = new Date()
 
     const displayComplaints = studentComplaints
         .slice(pagesVisited, pagesVisited + complaintPerPage)
@@ -37,9 +37,11 @@ export default function StudentComplaintPage() {
                     key={studentComplaints.indexOf(comp)}
                     className="complaint"
                 >
-                    <span>{comp._id}</span>
-                    <span>{date.toUTCString(comp.createdAt)}</span>
-                    <span className="status">
+                    <span>{comp.createdAt.toString()}</span>
+                    <span
+                        className="status"
+                        style={{ color: checkStatus(comp?.status) }}
+                    >
                         <FontAwesomeIcon className="dot" icon={faCircle} />
                         {comp.status}
                     </span>
@@ -53,6 +55,12 @@ export default function StudentComplaintPage() {
                 </div>
             )
         })
+
+    function checkStatus(status) {
+        if (status === "Pending") return "#e0e300"
+        else if (status === "Settled") return "#1bf216"
+        else if (status === "Denied") return "red"
+    }
 
     function changePage({ selected }) {
         setPageNumber(selected)
@@ -92,6 +100,7 @@ export default function StudentComplaintPage() {
         setFaculty(comp?.faculty._id)
         setComplaint(comp?.complaint)
         setEditComplaintId(comp?._id)
+        setResponse(comp?.comment?.comment)
         setMakeComplaint(true)
         setEditMode(true)
     }
@@ -184,6 +193,17 @@ export default function StudentComplaintPage() {
                                             placeholder="Enter complaint here"
                                         />
                                     </div>
+                                    {editMode ? (
+                                        <div className="input-cont">
+                                            <label>Staff's Response :</label>
+                                            <textarea
+                                                readOnly
+                                                className="response"
+                                                placeholder="Staff response.."
+                                                value={response}
+                                            ></textarea>
+                                        </div>
+                                    ) : null}
                                 </div>
                                 <button onClick={handleSubmit} className="done">
                                     Done
@@ -192,7 +212,6 @@ export default function StudentComplaintPage() {
                         ) : (
                             <div className="main-cont-2">
                                 <div className="comp-head">
-                                    <span>Complaint ID</span>
                                     <span>Date Sent</span>
                                     <span>Complaint Status</span>
                                     <span></span>

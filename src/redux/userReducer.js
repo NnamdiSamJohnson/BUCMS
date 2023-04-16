@@ -535,6 +535,9 @@ const userReducer = createSlice({
                 state.loading = false
                 if (action.payload) {
                     state.studentComplaints = action.payload.complaint
+                    state.studentComplaints.forEach((complaint) => {
+                        complaint.createdAt = new Date(complaint.createdAt)
+                    })
                 } else {
                     state.feedbackPopup = true
                     state.feedbackText = "Error loading student complaints"

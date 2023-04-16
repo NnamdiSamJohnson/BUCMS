@@ -117,7 +117,8 @@
                                 color: red;
                             }
                             & input,
-                            .complaint-input {
+                            .complaint-input,
+                            .response {
                                 border: 1.8px solid #ffd700;
                                 border-radius: 5px;
                                 height: 3rem;
@@ -131,6 +132,11 @@
                             .complaint-input {
                                 height: 7rem;
                                 padding-top: 0.5rem;
+                            }
+                            .response {
+                                height: 7rem;
+                                padding: 0.5rem;
+                                cursor: not-allowed;
                             }
                             & select {
                                 height: 3rem;
@@ -168,13 +174,17 @@
                         align-items: center;
                         text-align: center;
                         flex-wrap: nowrap;
+
                         padding-bottom: 0.5rem;
 
                         & span {
                             flex: 1;
                             color: rgba(0, 0, 0, 0.4);
                             font-size: 0.9rem;
-                            &:nth-child(4) {
+                            text-overflow: ellipsis;
+                            overflow-x: hidden;
+                            white-space: nowrap;
+                            &:nth-child(3) {
                                 flex: 0.2;
                             }
                         }
@@ -194,6 +204,9 @@
                             & span {
                                 flex: 1;
                                 font-size: 0.9rem;
+                                text-overflow: ellipsis;
+                                overflow-x: hidden;
+                                white-space: nowrap;
                             }
                             .status {
                                 color: #8a8cd9;
@@ -296,6 +309,8 @@
 @media (max-width: 768px) {
     .StudentComplaintPage {
         width: 100dvw;
+        height: auto;
+        padding-bottom: 5vh;
         flex-direction: column;
         overflow-x: hidden;
 

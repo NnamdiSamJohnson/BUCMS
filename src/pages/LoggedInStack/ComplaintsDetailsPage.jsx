@@ -8,7 +8,9 @@ import { hideSidebar, updateComplaint } from "../../redux/userReducer"
 import "../../styles/StaffComplaintsDetailsPage.scss"
 export default function ComplaintsDetailsPage() {
     const dispatch = useDispatch()
-    const { staff, admin, studentId } = useSelector((state) => state.user)
+    const { staff, admin, studentId, staffName, staffId } = useSelector(
+        (state) => state.user
+    )
     const location = useLocation()
     const complaint = location.state
     const date = new Date()
@@ -156,11 +158,16 @@ export default function ComplaintsDetailsPage() {
             <div className="section-2">
                 <div className="inputs">
                     <span>Staff's ID: </span>
-                    <input type="text" disabled value="BU-xxxxx" />
+                    <input type="text" disabled value={staffId} />
                 </div>
                 <div className="inputs">
                     <span>Staff's Name: </span>
-                    <input type="text" disabled value="Darlene Robertson" />
+                    <input
+                        type="text"
+                        disabled
+                        value={staffName}
+                        style={{ textTransform: "capitalize" }}
+                    />
                 </div>
             </div>
 
